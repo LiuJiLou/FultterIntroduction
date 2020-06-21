@@ -4,10 +4,10 @@ import 'package:wechat/pages/discover/discover_cell.dart';
 
 class MinePage extends StatefulWidget {
   @override
-  _ChatPageState createState() => _ChatPageState();
+  _MinePageState createState() => _MinePageState();
 }
 
-class _ChatPageState extends State<MinePage> {
+class _MinePageState extends State<MinePage> {
   double _left_distance = 50;
 
   Widget headerWidget() {

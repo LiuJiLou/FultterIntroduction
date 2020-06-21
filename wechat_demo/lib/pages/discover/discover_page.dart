@@ -17,7 +17,7 @@ class _ChatPageState extends State<DiscoverPage> {
         backgroundColor: _themeColor,
         centerTitle: true, //安卓需要
         title: Text('发现'),
-        elevation: 0.0, //底部边栏
+        elevation: 0.0, //底部边栏 、、在最上层图层
       ),
       body: Container(
         color: _themeColor,

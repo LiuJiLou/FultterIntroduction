@@ -3,7 +3,7 @@ import 'package:wechat/const.dart';
 import 'package:wechat/pages/discover/discover_child_page.dart';
 import 'package:wechat/pages/friends/index_bar.dart';
 
-import 'friends/friends_data.dart';
+import 'friends_data.dart';
 
 class FriendsPage extends StatefulWidget {
   @override
@@ -13,6 +13,7 @@ class FriendsPage extends StatefulWidget {
 class _FriendsPageState extends State<FriendsPage> {
 //  字典里面放item和高度的对应数据
   final Map _groupOffsetMap = {
+//    这里因为根据实际数据变化和固定全部字母前两个值都是一样的，所以没有做动态修改，如果不一样记得要修改
     INDEX_WORDS[0]: 0.0,
     INDEX_WORDS[1]: 0.0,
   };
@@ -37,9 +38,9 @@ class _FriendsPageState extends State<FriendsPage> {
     });
 
     var _groupOffset = 54.5 * 4;
-
+//经过循环计算，将每一个头的位置算出来，放入字典
     for (int i = 0; i < _listDatas.length; i++) {
-      if (i < 1 || _listDatas[i].indexLetter == _listDatas[i - 1].indexLetter) {
+      if (i < 1 || _listDatas[i].indexLetter != _listDatas[i - 1].indexLetter) {
         //第一个cell
         _groupOffsetMap.addAll({_listDatas[i].indexLetter: _groupOffset});
         //保存完了再加——groupOffset偏移
