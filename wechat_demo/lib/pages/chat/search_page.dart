@@ -1,4 +1,7 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
+import 'package:wechat/pages/chat/search_bar.dart';
 
 import 'chat_page.dart';
 
@@ -40,8 +43,64 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
+  void _searchData(String text) {
+    //每次进来都是重新搜索
+    _models.clear();
+    _searchStr = text;
+    if (text.length > 0) {
+      for (int i = 0; i < widget.datas.length; i++) {
+        String name = widget.datas[i].name;
+        if (name.contains(text)) {
+          _models.add(widget.datas[i]);
+        }
+      }
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          SearchBar(
+            onChanged: (text) {
+              _searchData(text);
+            },
+          ),
+          Expanded(
+              flex: 1,
+              child: MediaQuery.removePadding(
+                context: context,
+                removeTop: true,
+                child: ListView.builder(
+                    itemCount: _models.length, itemBuilder: _buildCellForRow),
+              ))
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCellForRow(BuildContext context, int index) {
+    return ListTile(
+      title: _title(_models[index].name),
+      subtitle: Container(
+        alignment: Alignment.bottomCenter,
+        padding: EdgeInsets.only(right: 10),
+        height: 25,
+        child: Text(
+          _models[index].message,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+      leading: Container(
+        width: 44,
+        height: 44,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6.0),
+            image:
+                DecorationImage(image: NetworkImage(_models[index].imageUrl))),
+      ), //聊天cell
+    );
   }
 }

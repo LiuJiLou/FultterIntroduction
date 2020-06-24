@@ -38,7 +38,7 @@ class SearchCell extends StatelessWidget {
               ),
               Text(
                 '搜索',
-                style: TextStyle(fontSize: 15, color: Colors.black),
+                style: TextStyle(fontSize: 15, color: Colors.grey),
               )
             ],
           )
@@ -83,7 +83,7 @@ class _SearchBarState extends State<SearchBar> {
           ),
           Container(
             height: 44,
-            color: Colors.red,
+//            color: Colors.red,
             child: Row(
               children: <Widget>[
                 Container(
@@ -127,12 +127,12 @@ class _SearchBarState extends State<SearchBar> {
                                 });
                               },
                               child: Icon(
-                                Icons.clear,
+                                Icons.cancel,
                                 size: 20,
                                 color: Colors.grey,
                               ),
                             )
-                          : Container(),
+                          : Container(), //取消按钮
                     ],
                   ),
                 ), //左边的圆角背景

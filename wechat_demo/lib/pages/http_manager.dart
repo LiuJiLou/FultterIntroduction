@@ -10,7 +10,11 @@ class HttpManager {
 //    1、创建配置，什么方法请求
     final options = Options(method: method, receiveTimeout: timeOut);
 //  2、发网络请求
-    return dio.request(url, queryParameters: queryParameters, options: options);
+    return dio.request(
+      url,
+      queryParameters: queryParameters,
+      options: options,
+    );
   }
 }
 

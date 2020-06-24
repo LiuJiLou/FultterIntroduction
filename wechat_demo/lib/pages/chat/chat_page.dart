@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:wechat/const.dart';
 import 'package:wechat/pages/chat/search_bar.dart';
-import 'package:wechat/pages/friends/friends_data.dart';
 import 'package:wechat/tools/http_manager.dart' as http;
 
 class ChatPage extends StatefulWidget {
@@ -85,6 +83,7 @@ class _ChatPageState extends State<ChatPage>
 //      //获取相应数据，并转成Map类型！
 //      final responseBody = json.decode(response.body);
 //      转模型数组 map中遍历的结果需要返回处理啊
+//    http请求解析
 //      List<Chat> chatList = responseBody['chat_list'].map<Chat>((item) {
       List<Chat> chatList = response.data['chat_list'].map<Chat>((item) {
         return Chat.fromJson(item);
@@ -131,7 +130,7 @@ class _ChatPageState extends State<ChatPage>
         body: Container(
           child: _datas.length == 0
               ? Center(
-                  child: Text('Loading'),
+                  child: Text('Loading...'),
                 )
               : ListView.builder(
                   itemCount: _datas.length + 1,
@@ -146,6 +145,11 @@ class _ChatPageState extends State<ChatPage>
         datas: _datas,
       );
     }
+//    因为第一个位置放了搜索框，所以index要 -1，才能得到正确的数组数据下标
+    index--;
+
+    print('text name = ' + _datas[index].name);
+    print('images url = ' + _datas[index].imageUrl);
 
     return ListTile(
       title: Text(_datas[index].name),
@@ -203,3 +207,21 @@ class Chat {
     );
   }
 }
+
+//关于Map和Json
+/*
+*
+//    final chat = {
+//      'name': '张三',
+//      'message': '吃了吗?',
+//    };
+    //Map转Json
+//    final chatJson = json.encode(chat);
+//    print(chatJson);
+
+    //Json转Map
+//    final newChat = json.decode(chatJson);
+//    print(newChat['name']);
+//    print(newChat['message']);
+//    print(newChat is Map);
+* */
