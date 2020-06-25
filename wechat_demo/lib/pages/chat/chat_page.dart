@@ -42,15 +42,15 @@ class _ChatPageState extends State<ChatPage>
     super.initState();
     print('Chat的init来了！');
 
-//    int _count = 0;
-//    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-//      _count++;
-//      print(object)
-//      print('数据来了');
-//      if (_count == 99) {
-//        timer.cancel();
-//      }
-//    });
+//    开启一个定时器，这个地方是为了验证定时器Timer
+    int _count = 0;
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      _count++;
+      print(_count);
+      if (_count == 99) {
+        timer.cancel(); //销毁定时器
+      }
+    });
 
     getDatas().then((List<Chat> datas) {
       print('数据来了');
@@ -173,6 +173,7 @@ class _ChatPageState extends State<ChatPage>
     );
   }
 
+//  类似ios 中的dealloc
   @override
   void dispose() {
     // TODO: implement dispose
