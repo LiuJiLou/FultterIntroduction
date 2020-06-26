@@ -6,14 +6,29 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 void main() {
-  tesIsolateDemo();
-//  testThenDemo();
-  testTimerDemo();
-//  dioDemo();
+  tesIsolateDemo(); //多线程
+//  testThenDemo();//then
+  testTimerDemo(); //timer
+  testDioDemo(); //网络请求
 }
 
 // ******************************* 网络请求 ****************************
+
+void testDioDemo() {
+  dioDemo(); //get请求
+  dioDemo1(); //下载
+}
+
+//-------------------------------- get请求 -----------------------------
 void dioDemo() {
+//  1、创建dio 对象
+  final dio = Dio();
+//2、发送请求
+  dio.get('http://www.baidu.com').then((value) => print(value));
+}
+
+//-------------------------------- get请求 -----------------------------
+void dioDemo1() {
 //  1、创建dio 对象
   final dio = Dio();
 //  2、下载数据
@@ -28,12 +43,8 @@ void dioDemo() {
   download1(dio, downloadUrl, savePath);
 }
 
-void download2(Dio dio, String downloadUrl, String savePath) {
-  dio.download(downloadUrl, (header) {
-    return savePath;
-  }, onReceiveProgress: showDownloadProgress);
-}
-
+// download 里面的 savePath 可以是一个字符串，也可以是一个回调
+// savePath 字符串 --------------------------------------
 void download1(Dio dio, String downloadUrl, String savePath) {
   dio
       .download(downloadUrl, savePath, onReceiveProgress: showDownloadProgress)
@@ -41,8 +52,18 @@ void download1(Dio dio, String downloadUrl, String savePath) {
       .whenComplete(() => print('结束了'));
 }
 
+// savePath 回调 --------------------------------------
+void download2(Dio dio, String downloadUrl, String savePath) {
+//  onReceiveProgress 监听进度
+  dio.download(downloadUrl, (header) {
+    return savePath;
+  }, onReceiveProgress: showDownloadProgress);
+}
+
+//下载的进度
 void showDownloadProgress(int count, int total) {
 //  toStringAsFixed 取整不要小数
+// count 当前下载大小， total 总大小
   if (total != -1) {
     print((count / total * 100).toStringAsFixed(0) + "%");
   }
