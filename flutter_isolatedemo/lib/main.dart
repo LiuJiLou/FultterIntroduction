@@ -27,7 +27,7 @@ void dioDemo() {
   dio.get('http://www.baidu.com').then((value) => print(value));
 }
 
-//-------------------------------- get请求 -----------------------------
+//-------------------------------- 下载请求 -----------------------------
 void dioDemo1() {
 //  1、创建dio 对象
   final dio = Dio();
@@ -69,6 +69,7 @@ void showDownloadProgress(int count, int total) {
   }
 }
 
+//******************************* then ********************************
 void futurDemo() {
 //  关于then， 它在Future任务执行完毕之后，立刻执行，可以看成一个任务执行（面试有问）
   Future x = Future(() {
