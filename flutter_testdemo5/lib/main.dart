@@ -38,7 +38,7 @@ class MyHomePage1 extends StatelessWidget {
   }
 }
 
-// --------------------2、StatelessWidget 生命周期-------------------------
+// --------------------2、StatefulWidgetWidget 生命周期-------------------------
 //widget
 class MyHomePage2 extends StatefulWidget {
   final String title;
