@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:wechat/pages/discover/discover_cell.dart';
 
 class MinePage extends StatefulWidget {
@@ -8,6 +11,7 @@ class MinePage extends StatefulWidget {
 }
 
 class _MinePageState extends State<MinePage> {
+  File _avataFile;
   double _left_distance = 50;
 
   Widget headerWidget() {
@@ -24,19 +28,26 @@ class _MinePageState extends State<MinePage> {
 //          color: Colors.red,
           child: Row(
             children: <Widget>[
-              Container(
-                width: 50,
-                height: 50,
-                //图片通过装饰器去设置圆角是不起作用的，应该设置在装饰器内的背景图
+              GestureDetector(
+                onTap: _pickImage,
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  //图片通过装饰器去设置圆角是不起作用的，应该设置在装饰器内的背景图
 //                child: Image(image:AssetImage('images/Hank.png')),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(10.0), //设置圆角，image没有这个属性
-                  //fit 填充
-                  image: DecorationImage(
-                      image: AssetImage('images/新的朋友.png'), fit: BoxFit.cover),
-                ),
-              ), //头像
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius:
+                        BorderRadius.circular(10.0), //设置圆角，image没有这个属性
+                    //fit 填充
+                    image: DecorationImage(
+                        image: _avataFile == null
+                            ? AssetImage('images/新的朋友.png')
+                            : FileImage(_avataFile),
+                        fit: BoxFit.cover),
+                  ),
+                ), //头像
+              ),
               Container(
                 margin:
                     EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 5),
@@ -172,5 +183,17 @@ class _MinePageState extends State<MinePage> {
         ],
       ),
     );
+  }
+
+//  async 异步 配合 await 等待，让该方法内部就成了同步
+//  getImage 是异步，不想写过多的.then等，所以等待转成同步
+  void _pickImage() async {
+//    ImagePicker.pickImage(source: null) //过期了
+
+//  ImageSource.gallery 使用相册
+    PickedFile file = await ImagePicker().getImage(source: ImageSource.gallery);
+    setState(() {
+      _avataFile = File(file.path);
+    });
   }
 }

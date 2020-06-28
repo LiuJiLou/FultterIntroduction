@@ -6,6 +6,8 @@ import 'package:wechat/pages/chat/search_bar.dart';
 import 'package:wechat/tools/http_manager.dart' as http;
 
 class ChatPage extends StatefulWidget {
+  //as 是为了解决方法名冲突的问题！通过重命名 .方法名  调用
+//  import 'package:wechat/tools/http_manager.dart' as http;
   @override
   _ChatPageState createState() => _ChatPageState();
 }
